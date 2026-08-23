@@ -1,732 +1,1059 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="google-site-verification" content="RW8qWEQlyFZeDk7CiNI5V2hp8IbROasLWzNdFAjpQ_Y">
-
-    <meta name="description"
-        content="WebPro — создание современных сайтов для бизнеса. Разрабатываем быстрые, удобные и адаптивные сайты для компаний и личных брендов.">
-
-    <meta name="keywords"
-        content="создание сайтов, разработка сайтов, сайты для бизнеса, WebPro">
-
-    <meta name="author" content="WebPro">
-
-    <meta name="robots" content="index, follow">
-
-    <title>WebPro — создание сайтов для бизнеса</title>
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>WebPro — Создание сайтов для бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:#6366f1;color:#fff}
 
-<title>...</title>
+/* Background */
+.mesh-bg{position:fixed;inset:0;z-index:-3;background:#050510}
+.mesh-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(99,102,241,0.35) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(236,72,153,0.25) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(34,211,238,0.15) 0%,transparent 60%);animation:meshMove 20s ease-in-out infinite}
+@keyframes meshMove{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.1) rotate(2deg)}}
+.grid-overlay{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,black 20%,transparent 80%)}
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#050510}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6366f1,#ec4899);border-radius:3px}
 
-<link rel="stylesheet" href="style.css">
+/* ===== NAVBAR ===== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;backdrop-filter:blur(20px) saturate(180%);background:rgba(5,5,16,0.7);border-bottom:1px solid rgba(255,255,255,0.05);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+.navbar.scrolled{padding:0.7rem 2rem;background:rgba(5,5,16,0.95);border-bottom-color:rgba(99,102,241,0.2)}
+.nav-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;text-decoration:none;color:#fff;display:flex;align-items:center;gap:0.5rem}
+.logo-icon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#ec4899);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(99,102,241,0.4);animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 20px rgba(99,102,241,0.4)}50%{box-shadow:0 0 40px rgba(236,72,153,0.6)}}
+.logo-icon svg{width:18px;height:18px;color:#fff}
 
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-weight:500;font-size:0.88rem;position:relative;transition:all 0.3s;letter-spacing:0.3px}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%) scaleX(0);width:18px;height:2px;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:2px;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{transform:translateX(-50%) scaleX(1)}
+
+.lang-switcher{display:flex;gap:0.3rem;background:rgba(255,255,255,0.04);padding:0.25rem;border-radius:10px;border:1px solid rgba(255,255,255,0.06)}
+.lang-btn{padding:0.45rem 0.85rem;border:none;background:transparent;color:rgba(255,255,255,0.5);font-weight:600;font-size:0.78rem;cursor:pointer;border-radius:8px;transition:all 0.3s;font-family:'Inter',sans-serif;letter-spacing:0.5px}
+.lang-btn.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 15px rgba(99,102,241,0.3)}
+.lang-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,0.05)}
+
+.mobile-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:1001}
+.mobile-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s}
+.mobile-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.mobile-toggle.active span:nth-child(2){opacity:0}
+.mobile-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.mobile-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(5,5,16,0.98);backdrop-filter:blur(30px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem;opacity:0;pointer-events:none;transition:opacity 0.4s}
+.mobile-menu.active{opacity:1;pointer-events:all}
+.mobile-menu a{color:#fff;text-decoration:none;font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:600;opacity:0;transform:translateY(20px);transition:all 0.4s}
+.mobile-menu.active a{opacity:1;transform:translateY(0)}
+.mobile-menu.active a:nth-child(1){transition-delay:0.08s}
+.mobile-menu.active a:nth-child(2){transition-delay:0.12s}
+.mobile-menu.active a:nth-child(3){transition-delay:0.16s}
+.mobile-menu.active a:nth-child(4){transition-delay:0.2s}
+.mobile-menu.active a:nth-child(5){transition-delay:0.24s}
+.mobile-menu.active a:nth-child(6){transition-delay:0.28s}
+.mobile-lang{display:flex;gap:0.5rem;margin-top:0.5rem}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:8rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;opacity:0.5;animation:floatParticle linear infinite}
+@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:0.5}90%{opacity:0.5}100%{transform:translateY(-100px) scale(1);opacity:0}}
+
+.hero-inner{max-width:1200px;width:100%;display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.hero-content{max-width:600px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);border-radius:50px;font-size:0.82rem;color:#818cf8;font-weight:500;margin-bottom:1.2rem;backdrop-filter:blur(10px);animation:fadeInUp 0.8s ease-out}
+.hero-badge::before{content:'';width:7px;height:7px;background:#22d3ee;border-radius:50%;box-shadow:0 0 10px #22d3ee;animation:dotPulse 2s infinite}
+@keyframes dotPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.7}}
+
+.hero-title{font-family:'Outfit',sans-serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:1.2rem;animation:fadeInUp 0.8s ease-out 0.1s both}
+.hero-title .gradient-text{background:linear-gradient(135deg,#6366f1 0%,#22d3ee 50%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:gradientShift 5s ease infinite}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-subtitle{font-size:1rem;color:rgba(255,255,255,0.45);max-width:480px;margin-bottom:2rem;line-height:1.7;animation:fadeInUp 0.8s ease-out 0.2s both}
+
+.hero-buttons{display:flex;gap:0.8rem;flex-wrap:wrap;animation:fadeInUp 0.8s ease-out 0.3s both}
+.btn{padding:0.9rem 2rem;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;border:none;font-family:'Inter',sans-serif;position:relative;overflow:hidden;white-space:nowrap}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);transform:translateX(-100%);transition:transform 0.6s}
+.btn:hover::before{transform:translateX(100%)}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 8px 30px rgba(99,102,241,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(99,102,241,0.4)}
+.btn-secondary{background:rgba(255,255,255,0.04);color:#fff;border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px)}
+.btn-secondary:hover{border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.08);transform:translateY(-2px)}
+
+.hero-visual{position:relative;height:420px;display:flex;align-items:center;justify-content:center;animation:fadeInUp 0.8s ease-out 0.4s both}
+.hero-visual .orbit-ring{position:absolute;border:1px solid rgba(99,102,241,0.15);border-radius:50%;animation:orbitSpin linear infinite}
+.hero-visual .orbit-ring:nth-child(1){width:360px;height:360px;animation-duration:30s}
+.hero-visual .orbit-ring:nth-child(2){width:280px;height:280px;animation-duration:22s;animation-direction:reverse;border-color:rgba(236,72,153,0.15)}
+.hero-visual .orbit-ring:nth-child(3){width:180px;height:180px;animation-duration:15s;border-color:rgba(34,211,238,0.15)}
+@keyframes orbitSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.hero-visual .center-card{width:140px;height:140px;border-radius:22px;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(236,72,153,0.2));border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);box-shadow:0 0 50px rgba(99,102,241,0.15);animation:cardFloat 6s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+.hero-visual .center-card svg{width:50px;height:50px;color:#fff}
+
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);animation:fadeInUp 0.8s ease-out 0.5s both}
+.stat-item{text-align:center}
+.stat-num{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(135deg,#22d3ee,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:0.2rem;font-weight:500}
+
+/* ===== MARQUEE ===== */
+.marquee-section{padding:1.5rem 0;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);overflow:hidden;background:rgba(255,255,255,0.015)}
+.marquee-track{display:flex;gap:3rem;animation:marqueeScroll 25s linear infinite;width:max-content}
+.marquee-item{display:flex;align-items:center;gap:0.7rem;color:rgba(255,255,255,0.3);font-weight:600;font-size:0.85rem;white-space:nowrap}
+.marquee-item svg{width:18px;height:18px;opacity:0.5}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== SECTIONS ===== */
+.section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto;position:relative}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-label{display:inline-block;padding:0.4rem 1rem;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);border-radius:50px;font-size:0.75rem;color:#818cf8;font-weight:600;margin-bottom:1rem;text-transform:uppercase;letter-spacing:2px;backdrop-filter:blur(10px)}
+.section-title{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;margin-bottom:0.8rem;line-height:1.2}
+.section-title .accent{background:linear-gradient(135deg,#22d3ee,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{color:rgba(255,255,255,0.4);font-size:1rem;max-width:500px;margin:0 auto;line-height:1.7}
+
+/* ===== ADVANTAGES ===== */
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.adv-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px)}
+.adv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--glow),transparent);opacity:0;transition:opacity 0.5s}
+.adv-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.12);box-shadow:0 15px 50px rgba(0,0,0,0.3)}
+.adv-card:hover::before{opacity:1}
+.adv-card:nth-child(1){--glow:#22d3ee}
+.adv-card:nth-child(2){--glow:#a78bfa}
+.adv-card:nth-child(3){--glow:#f472b6}
+.adv-card:nth-child(4){--glow:#34d399}
+.adv-card:nth-child(5){--glow:#fbbf24}
+.adv-card:nth-child(6){--glow:#60a5fa}
+
+.adv-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all 0.4s}
+.adv-card:hover .adv-icon{transform:scale(1.08)}
+.adv-icon svg{width:22px;height:22px}
+.adv-card:nth-child(1) .adv-icon svg{color:#22d3ee}
+.adv-card:nth-child(2) .adv-icon svg{color:#a78bfa}
+.adv-card:nth-child(3) .adv-icon svg{color:#f472b6}
+.adv-card:nth-child(4) .adv-icon svg{color:#34d399}
+.adv-card:nth-child(5) .adv-icon svg{color:#fbbf24}
+.adv-card:nth-child(6) .adv-icon svg{color:#60a5fa}
+
+.adv-title{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem}
+.adv-desc{color:rgba(255,255,255,0.4);font-size:0.9rem;line-height:1.6}
+
+/* ===== SERVICES ===== */
+.srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.srv-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px);cursor:pointer}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--srv-gradient);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1)}
+.srv-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.12)}
+.srv-card:hover::after{transform:scaleX(1)}
+.srv-card:nth-child(1){--srv-gradient:linear-gradient(90deg,#22d3ee,#6366f1)}
+.srv-card:nth-child(2){--srv-gradient:linear-gradient(90deg,#a78bfa,#ec4899)}
+.srv-card:nth-child(3){--srv-gradient:linear-gradient(90deg,#f472b6,#fbbf24)}
+.srv-card:nth-child(4){--srv-gradient:linear-gradient(90deg,#34d399,#22d3ee)}
+.srv-card:nth-child(5){--srv-gradient:linear-gradient(90deg,#fbbf24,#f472b6)}
+
+.srv-glow{position:absolute;top:50%;left:50%;width:180px;height:180px;border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity 0.5s;filter:blur(50px);z-index:0}
+.srv-card:hover .srv-glow{opacity:0.1}
+.srv-card:nth-child(1) .srv-glow{background:#22d3ee}
+.srv-card:nth-child(2) .srv-glow{background:#a78bfa}
+.srv-card:nth-child(3) .srv-glow{background:#f472b6}
+.srv-card:nth-child(4) .srv-glow{background:#34d399}
+.srv-card:nth-child(5) .srv-glow{background:#fbbf24}
+
+.srv-icon{position:relative;z-index:1;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;transition:all 0.4s}
+.srv-card:hover .srv-icon{transform:scale(1.1);border-color:rgba(255,255,255,0.15)}
+.srv-icon svg{width:24px;height:24px;color:#fff}
+.srv-title{position:relative;z-index:1;font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.5rem}
+.srv-desc{position:relative;z-index:1;color:rgba(255,255,255,0.4);font-size:0.9rem;line-height:1.6}
+.srv-badge{display:inline-block;margin-top:1rem;padding:0.3rem 0.9rem;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:#22d3ee;border-radius:50px;font-size:0.75rem;font-weight:600;position:relative;z-index:1}
+
+/* ===== PORTFOLIO ===== */
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.port-card{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;background:#0a0a1a}
+.port-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1);display:block}
+.port-card:hover img{transform:scale(1.08)}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,16,0.92) 0%,rgba(5,5,16,0.4) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;opacity:0;transition:opacity 0.5s}
+.port-card:hover .port-overlay{opacity:1}
+.port-tag{display:inline-block;padding:0.25rem 0.7rem;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.3);color:#818cf8;border-radius:50px;font-size:0.7rem;font-weight:600;margin-bottom:0.6rem;width:fit-content;transform:translateY(15px);transition:transform 0.5s 0.1s}
+.port-card:hover .port-tag{transform:translateY(0)}
+.port-title{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.2rem;transform:translateY(15px);transition:transform 0.5s 0.15s}
+.port-card:hover .port-title{transform:translateY(0)}
+.port-subtitle{color:rgba(255,255,255,0.5);font-size:0.85rem;transform:translateY(15px);transition:transform 0.5s 0.2s}
+.port-card:hover .port-subtitle{transform:translateY(0)}
+
+/* ===== PRICING ===== */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:start}
+.price-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:2rem;position:relative;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px)}
+.price-card.featured{border-color:rgba(99,102,241,0.25);transform:scale(1.03);background:linear-gradient(180deg,rgba(99,102,241,0.06),rgba(99,102,241,0.01));box-shadow:0 0 60px rgba(99,102,241,0.08)}
+.price-card.featured::before{content:attr(data-popular);position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:0.4rem 1.2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;font-size:0.75rem;font-weight:700;border-radius:50px;box-shadow:0 4px 15px rgba(99,102,241,0.3);letter-spacing:1px;white-space:nowrap}
+.price-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.12);box-shadow:0 15px 50px rgba(0,0,0,0.3)}
+.price-card.featured:hover{transform:scale(1.03) translateY(-6px)}
+.price-name{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.4rem}
+.price-amount{font-family:'Outfit',sans-serif;font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.2rem}
+.price-period{color:rgba(255,255,255,0.35);font-size:0.85rem;margin-bottom:1.5rem}
+.price-features{list-style:none;margin-bottom:1.8rem}
+.price-features li{padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.45);font-size:0.9rem}
+.price-features li:last-child{border-bottom:none}
+.price-features li svg{width:16px;height:16px;color:#22d3ee;flex-shrink:0}
+
+/* ===== STEPS ===== */
+.steps-wrap{max-width:750px;margin:0 auto;display:flex;flex-direction:column}
+.step-row{display:flex;gap:1.5rem;align-items:flex-start;padding:2rem;position:relative}
+.step-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.04)}
+.step-num{font-family:'Outfit',sans-serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;flex-shrink:0;min-width:70px;opacity:0.7}
+.step-body h3{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.4rem}
+.step-body p{color:rgba(255,255,255,0.4);font-size:0.9rem;line-height:1.7}
+
+/* ===== ABOUT ===== */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-visual{position:relative;height:380px;display:flex;align-items:center;justify-content:center}
+.about-visual .glow-orb{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.25),transparent 70%);animation:orbPulse 4s ease-in-out infinite}
+@keyframes orbPulse{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.15);opacity:0.8}}
+.about-visual .ring{position:absolute;border:1px solid rgba(99,102,241,0.12);border-radius:50%;animation:ringSpin linear infinite}
+.about-visual .ring:nth-child(2){width:300px;height:300px;animation-duration:25s}
+.about-visual .ring:nth-child(3){width:220px;height:220px;animation-duration:18s;animation-direction:reverse;border-color:rgba(236,72,153,0.12)}
+.about-visual .ring:nth-child(4){width:140px;height:140px;animation-duration:12s;border-color:rgba(34,211,238,0.12)}
+.about-visual .core{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#ec4899);box-shadow:0 0 60px rgba(99,102,241,0.3);animation:corePulse 3s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
+@keyframes corePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.about-visual .core svg{width:36px;height:36px;color:#fff}
+
+.about-text h2{font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;margin-bottom:1.2rem;line-height:1.2}
+.about-text p{color:rgba(255,255,255,0.4);font-size:0.95rem;margin-bottom:1.2rem;line-height:1.8}
+.about-stats{display:flex;gap:2.5rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06)}
+.about-stat{text-align:center}
+.about-stat .num{font-family:'Outfit',sans-serif;font-size:2.2rem;font-weight:800;color:#22d3ee}
+.about-stat .lbl{color:rgba(255,255,255,0.35);font-size:0.8rem;font-weight:500;margin-top:0.2rem}
+
+/* ===== FAQ ===== */
+.faq-wrap{max-width:750px;margin:0 auto}
+.faq-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:14px;margin-bottom:0.8rem;overflow:hidden;transition:all 0.4s;backdrop-filter:blur(10px)}
+.faq-item:hover{border-color:rgba(255,255,255,0.1)}
+.faq-item.active{border-color:rgba(99,102,241,0.2);background:rgba(99,102,241,0.03)}
+.faq-q{padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:1rem;transition:color 0.3s;gap:1rem}
+.faq-q:hover{color:#818cf8}
+.faq-icon{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex-shrink:0;border:1px solid rgba(255,255,255,0.08)}
+.faq-icon svg{width:12px;height:12px;color:rgba(255,255,255,0.5);transition:transform 0.4s}
+.faq-item.active .faq-icon{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-color:transparent}
+.faq-item.active .faq-icon svg{color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.16,1,0.3,1),padding 0.5s;color:rgba(255,255,255,0.4);line-height:1.8;padding:0 1.5rem;font-size:0.95rem}
+.faq-item.active .faq-a{max-height:300px;padding:0 1.5rem 1.2rem}
+
+/* ===== CONTACT (Socials only) ===== */
+.contact-section{text-align:center;padding:5rem 1.5rem}
+.contact-section .section-header{margin-bottom:2.5rem}
+.contact-socials{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.contact-social{display:flex;align-items:center;gap:0.8rem;padding:1rem 1.8rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;color:#fff;text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px);font-weight:600;font-size:0.95rem}
+.contact-social:hover{border-color:rgba(99,102,241,0.3);transform:translateY(-4px);background:rgba(99,102,241,0.05);box-shadow:0 10px 30px rgba(99,102,241,0.1)}
+.contact-social .cs-icon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s}
+.contact-social:hover .cs-icon{transform:scale(1.1);border-color:rgba(99,102,241,0.3)}
+.contact-social .cs-icon svg{width:20px;height:20px}
+
+/* ===== CTA ===== */
+.cta-section{text-align:center;padding:5rem 1.5rem;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.12),transparent 60%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-title{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;margin-bottom:0.8rem;line-height:1.2}
+.cta-desc{color:rgba(255,255,255,0.4);font-size:1rem;margin-bottom:2rem;line-height:1.7}
+
+/* ===== FOOTER ===== */
+.footer{border-top:1px solid rgba(255,255,255,0.04);padding:2.5rem 1.5rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-brand{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-socials{display:flex;gap:0.8rem}
+.footer-social{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;transition:all 0.4s;cursor:pointer;text-decoration:none}
+.footer-social:hover{border-color:rgba(99,102,241,0.25);transform:translateY(-3px);background:rgba(99,102,241,0.08);box-shadow:0 8px 25px rgba(99,102,241,0.12)}
+.footer-social svg{width:18px;height:18px;color:rgba(255,255,255,0.5);transition:color 0.3s}
+.footer-social:hover svg{color:#fff}
+.footer-copy{color:rgba(255,255,255,0.25);font-size:0.8rem}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.r-d1{transition-delay:0.08s}
+.r-d2{transition-delay:0.16s}
+.r-d3{transition-delay:0.24s}
+.r-d4{transition-delay:0.32s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+.hero-inner{grid-template-columns:1fr;text-align:center}
+.hero-visual{display:none}
+.hero-content{max-width:100%;margin:0 auto}
+.hero-subtitle{margin:0 auto 2rem}
+.hero-stats{justify-content:center}
+.adv-grid{grid-template-columns:repeat(2,1fr)}
+.port-grid{grid-template-columns:repeat(2,1fr)}
+.about-wrap{grid-template-columns:1fr;gap:2.5rem}
+.about-visual{height:300px}
+}
+@media(max-width:768px){
+.nav-links,.lang-switcher{display:none}
+.mobile-toggle{display:flex}
+.navbar{padding:0.8rem 1rem}
+.hero{padding:6rem 1rem 3rem}
+.hero-title{font-size:clamp(1.8rem,6vw,2.4rem)}
+.hero-subtitle{font-size:0.9rem}
+.hero-buttons{justify-content:center}
+.hero-stats{gap:1.5rem;margin-top:2rem;padding-top:1.5rem}
+.stat-num{font-size:1.6rem}
+.section{padding:3rem 1rem}
+.section-title{font-size:clamp(1.5rem,5vw,2rem)}
+.adv-grid{grid-template-columns:1fr;gap:0.8rem}
+.adv-card{padding:1.5rem}
+.port-grid{grid-template-columns:1fr;gap:0.8rem}
+.port-card{aspect-ratio:16/9}
+.price-grid{grid-template-columns:1fr;gap:1rem}
+.price-card.featured{transform:scale(1)}
+.price-card.featured:hover{transform:scale(1) translateY(-6px)}
+.price-amount{font-size:2rem}
+.step-row{padding:1.5rem;gap:1rem}
+.step-num{font-size:2.5rem;min-width:55px}
+.about-stats{gap:1.5rem}
+.about-stat .num{font-size:1.8rem}
+.contact-socials{flex-direction:column;align-items:stretch;max-width:320px;margin:0 auto}
+.contact-social{justify-content:center}
+.footer-inner{flex-direction:column;text-align:center;gap:1rem}
+}
+@media(max-width:480px){
+.hero-stats{gap:1rem}
+.stat-item{flex:1}
+.stat-label{font-size:0.7rem}
+.marquee-item{font-size:0.75rem}
+.srv-grid{grid-template-columns:1fr}
+.faq-q{font-size:0.9rem;padding:1rem 1.2rem}
+.faq-a{padding:0 1.2rem;font-size:0.9rem}
+.faq-item.active .faq-a{padding:0 1.2rem 1rem}
+}
+</style>
 </head>
-    <!-- =========================
-         BACKGROUND ANIMATION
-    ========================== -->
+<body>
 
-    <div class="webpro-animation">
+<div class="mesh-bg"></div>
+<div class="grid-overlay"></div>
 
-        <div class="webpro-bubble"></div>
-        <div class="webpro-bubble"></div>
-        <div class="webpro-bubble"></div>
-        <div class="webpro-bubble"></div>
+<!-- SVG SPRITE -->
+<svg style="display:none">
+<defs>
+<symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M5 12l5 5L20 7"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="17" cy="9" r="1.5" fill="currentColor"/><circle cx="17" cy="15" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/><circle cx="7" cy="15" r="1.5" fill="currentColor"/><circle cx="7" cy="9" r="1.5" fill="currentColor"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M21 21l-4.35-4.35"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M12 18h.01"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+<symbol id="i-support" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 16v4H3a2 2 0 0 1-2-2v-4h15z"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 16h5a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-5"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M2 10h20"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M9 9h1M9 13h1M9 17h1"/></symbol>
+<symbol id="i-shopping" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+<symbol id="i-restaurant" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 2v20"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13 2v4a4 4 0 0 0 4 4h0a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h0a4 4 0 0 1-4-4"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+</defs>
+</svg>
 
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon"><svg><use href="#i-code"/></svg></div>
+      WebPro
+    </a>
+    <ul class="nav-links">
+      <li><a href="#advantages" data-key="nav_adv">Преимущества</a></li>
+      <li><a href="#services" data-key="nav_srv">Услуги</a></li>
+      <li><a href="#portfolio" data-key="nav_port">Портфолио</a></li>
+      <li><a href="#pricing" data-key="nav_price">Тарифы</a></li>
+      <li><a href="#about" data-key="nav_about">О нас</a></li>
+      <li><a href="#contact" data-key="nav_contact">Контакты</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="tj">TJ</button>
     </div>
+    <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#advantages" data-key="nav_adv">Преимущества</a>
+  <a href="#services" data-key="nav_srv">Услуги</a>
+  <a href="#portfolio" data-key="nav_port">Портфолио</a>
+  <a href="#pricing" data-key="nav_price">Тарифы</a>
+  <a href="#about" data-key="nav_about">О нас</a>
+  <a href="#contact" data-key="nav_contact">Контакты</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="tj">TJ</button>
+  </div>
+</div>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
-
-    <header>
-
-        <a href="#home" class="logo">
-            WebPro
-        </a>
-
-
-        <button
-            class="menu-toggle"
-            onclick="toggleMenu()"
-            aria-label="Открыть меню"
-            aria-controls="mainNav"
-            aria-expanded="false">
-
-            <i class="fa-solid fa-bars"></i>
-
-        </button>
-
-
-        <nav id="mainNav">
-
-            <a href="#home">
-                Главная
-            </a>
-
-            <a href="#services">
-                Услуги
-            </a>
-
-            <a href="#portfolio">
-                Наши работы
-            </a>
-
-            <a href="#about">
-                О нас
-            </a>
-
-            <a href="#contacts">
-                Контакты
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <!-- =========================
-         MAIN
-    ========================== -->
-
-    <main>
-
-
-     <!-- =========================
-     HERO
-========================= -->
-
-<section id="home" class="hero">
-
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-inner">
     <div class="hero-content">
-
-        <div class="hero-badge">
-            WEB DEVELOPMENT
+      <div class="hero-badge" data-key="hero_badge">Персональная веб-студия</div>
+      <h1 class="hero-title">
+        <span data-key="hero_t1">Сайт, который</span><br>
+        <span class="gradient-text" data-key="hero_t2">выведет ваш бизнес</span><br>
+        <span data-key="hero_t3">на новый уровень</span>
+      </h1>
+      <p class="hero-subtitle" data-key="hero_sub">Современные, быстрые и адаптивные сайты под любые устройства. Индивидуальный подход к каждому проекту с гарантией качества.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <svg width="16" height="16"><use href="#i-send"/></svg>
+          <span data-key="btn_order">Заказать сайт</span>
+        </a>
+        <a href="#portfolio" class="btn btn-secondary">
+          <svg width="16" height="16"><use href="#i-monitor"/></svg>
+          <span data-key="btn_works">Посмотреть работы</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" data-count="50">0</div>
+          <div class="stat-label" data-key="stat_proj">Проектов</div>
         </div>
-
-        <h1>
-            WebPro
-            <span>Создаём сайты<br>для вашего бизнеса</span>
-        </h1>
-
-        <p>
-            Современные, быстрые и удобные сайты,
-            которые помогают вашему бизнесу
-            развиваться и привлекать клиентов.
-        </p>
-
-        <div class="hero-actions">
-
-            <button class="order-button"
-                onclick="showContacts()">
-
-                Заказать сайт
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </button>
-
+        <div class="stat-item">
+          <div class="stat-num" data-count="3">0</div>
+          <div class="stat-label" data-key="stat_exp">Года опыта</div>
         </div>
-
-
-        <!-- CONTACT BUTTONS -->
-
-        <div id="contactButtons" class="contact-buttons">
-
-            <div class="contact-title">
-                Выберите удобный способ связи
-            </div>
-
-            <div class="contact-links">
-
-                <a href="https://t.me/kbrv8"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="telegram">
-
-                    <i class="fa-brands fa-telegram"></i>
-
-                    <span>Telegram</span>
-
-                </a>
-
-
-                <a href="https://wa.me/992974008118"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="whatsapp">
-
-                    <i class="fa-brands fa-whatsapp"></i>
-
-                    <span>WhatsApp</span>
-
-                </a>
-
-
-                <a href="https://instagram.com/kabirov.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="instagram">
-
-                    <i class="fa-brands fa-instagram"></i>
-
-                    <span>Instagram</span>
-
-                </a>
-
-            </div>
-
+        <div class="stat-item">
+          <div class="stat-num" data-count="100">0</div>
+          <div class="stat-label" data-key="stat_sat">% довольных</div>
         </div>
-
+      </div>
     </div>
-
+    <div class="hero-visual">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="center-card">
+        <svg><use href="#i-code"/></svg>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-
-     <!-- =========================
-     SERVICES
-========================= -->
-
-<section id="services" class="services">
-
-    <div class="section-heading">
-
-        <span>ЧТО МЫ ДЕЛАЕМ</span>
-
-        <h2>Наши услуги</h2>
-
-        <p>
-            Создаём решения, которые подходят
-            именно вашему бизнесу.
-        </p>
-
-    </div>
-
-
-    <div class="services-grid">
-
-        <!-- SERVICE 1 -->
-
-        <article class="service-card">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-globe"></i>
-            </div>
-
-            <div class="service-number">
-                01
-            </div>
-
-            <h3>
-                Сайт-визитка
-            </h3>
-
-            <p>
-                Современный сайт для компании,
-                специалиста или личного бренда.
-                Представьте свой бизнес профессионально
-                в интернете.
-            </p>
-
-            <div class="service-bottom">
-                <span>Современный дизайн</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-
-        </article>
-
-
-        <!-- SERVICE 2 -->
-
-        <article class="service-card">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-
-            <div class="service-number">
-                02
-            </div>
-
-            <h3>
-                Интернет-магазин
-            </h3>
-
-            <p>
-                Удобный сайт для продажи товаров,
-                презентации каталога и приёма
-                заказов онлайн.
-            </p>
-
-            <div class="service-bottom">
-                <span>Продажи онлайн</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-
-        </article>
-
-
-        <!-- SERVICE 3 -->
-
-        <article class="service-card">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-bullseye"></i>
-            </div>
-
-            <div class="service-number">
-                03
-            </div>
-
-            <h3>
-                Landing Page
-            </h3>
-
-            <p>
-                Одностраничный сайт для продвижения
-                продукта, услуги или специального
-                предложения.
-            </p>
-
-            <div class="service-bottom">
-                <span>Фокус на результате</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-
-        </article>
-
-    </div>
-
+<!-- MARQUEE -->
+<section class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_1">Современный дизайн</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_2">SEO оптимизация</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_3">Адаптивность</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_4">Быстрая загрузка</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_5">Поддержка 24/7</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_6">Доступные цены</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_1">Современный дизайн</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_2">SEO оптимизация</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_3">Адаптивность</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_4">Быстрая загрузка</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_5">Поддержка 24/7</span></div>
+    <div class="marquee-item"><svg><use href="#i-check"/></svg> <span data-key="mq_6">Доступные цены</span></div>
+  </div>
 </section>
 
-        <!-- =========================
-     PORTFOLIO
-========================= -->
-
-<section id="portfolio" class="portfolio">
-
-    <div class="section-heading">
-
-        <span>ПРИМЕРЫ РАБОТ</span>
-
-        <h2>Наши работы</h2>
-
-        <p>
-            Примеры современных решений
-            для разных направлений бизнеса.
-        </p>
-
+<!-- ADVANTAGES -->
+<section class="section" id="advantages">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_adv">Преимущества</span>
+    <h2 class="section-title" data-key="title_adv">Почему выбирают нас</h2>
+    <p class="section-desc" data-key="desc_adv">Каждый сайт создаётся с вниманием к деталям и под цели вашего бизнеса</p>
+  </div>
+  <div class="adv-grid">
+    <div class="adv-card reveal r-d1">
+      <div class="adv-icon"><svg><use href="#i-palette"/></svg></div>
+      <h3 class="adv-title" data-key="adv1_t">Современный дизайн</h3>
+      <p class="adv-desc" data-key="adv1_d">Индивидуальный стиль, а не шаблон — каждый сайт создаётся в своей уникальной эстетике с учётом трендов 2026 года.</p>
     </div>
-
-
-    <div class="portfolio-grid">
-
-        <!-- =========================
-             PROJECT 1
-        ========================== -->
-
-        <article class="portfolio-item">
-
-            <div class="portfolio-image">
-
-              <video autoplay muted loop playsinline>
-    <source src="restaurant.mp4" type="video/mp4">
-</video>
-
-                <div class="portfolio-overlay">
-
-                    <span>РЕСТОРАН</span>
-
-                    <div class="portfolio-arrow">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="portfolio-content">
-
-                <div class="portfolio-category">
-                    РЕСТОРАН
-                </div>
-
-                <h3>
-                    Сайт ресторана
-                </h3>
-
-                <p>
-                    Современный сайт для ресторана
-                    с акцентом на атмосферу, меню
-                    и удобство для клиентов.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <!-- =========================
-             PROJECT 2
-        ========================== -->
-
-        <article class="portfolio-item">
-
-            <div class="portfolio-image">
-
-            <video autoplay muted loop playsinline>
-    <source src="store.mp4" type="video/mp4">
-</video>
-                <div class="portfolio-overlay">
-
-                    <span>ИНТЕРНЕТ-МАГАЗИН</span>
-
-                    <div class="portfolio-arrow">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="portfolio-content">
-
-                <div class="portfolio-category">
-                    ИНТЕРНЕТ-МАГАЗИН
-                </div>
-
-                <h3>
-                    Интернет-магазин
-                </h3>
-
-                <p>
-                    Удобный сайт для продажи товаров
-                    с понятной структурой каталога
-                    и современной подачей.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <!-- =========================
-             PROJECT 3
-        ========================== -->
-
-        <article class="portfolio-item">
-
-            <div class="portfolio-image">
-
-              <video autoplay muted loop playsinline>
-    <source src="business.mp4" type="video/mp4">
-</video>
-                <div class="portfolio-overlay">
-
-                    <span>БИЗНЕС</span>
-
-                    <div class="portfolio-arrow">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="portfolio-content">
-
-                <div class="portfolio-category">
-                    БИЗНЕС
-                </div>
-
-                <h3>
-                    Сайт компании
-                </h3>
-
-                <p>
-                    Профессиональный сайт для компании,
-                    который помогает представить услуги
-                    и привлечь новых клиентов.
-                </p>
-
-            </div>
-
-        </article>
-
+    <div class="adv-card reveal r-d2">
+      <div class="adv-icon"><svg><use href="#i-search"/></svg></div>
+      <h3 class="adv-title" data-key="adv2_t">SEO оптимизация</h3>
+      <p class="adv-desc" data-key="adv2_d">Ваш сайт будет легко найти в Google и Яндекс. Оптимизация под поисковые системы включена в каждый проект.</p>
     </div>
-
+    <div class="adv-card reveal r-d3">
+      <div class="adv-icon"><svg><use href="#i-phone"/></svg></div>
+      <h3 class="adv-title" data-key="adv3_t">Адаптация под телефон</h3>
+      <p class="adv-desc" data-key="adv3_d">Корректная работа на любом экране — от смартфона до широкого монитора. Mobile-first подход.</p>
+    </div>
+    <div class="adv-card reveal r-d1">
+      <div class="adv-icon"><svg><use href="#i-zap"/></svg></div>
+      <h3 class="adv-title" data-key="adv4_t">Быстрая загрузка</h3>
+      <p class="adv-desc" data-key="adv4_d">Сайт открывается мгновенно. Оптимизированный код, современные технологии и минимальное время отклика.</p>
+    </div>
+    <div class="adv-card reveal r-d2">
+      <div class="adv-icon"><svg><use href="#i-support"/></svg></div>
+      <h3 class="adv-title" data-key="adv5_t">Поддержка после запуска</h3>
+      <p class="adv-desc" data-key="adv5_d">Вы не остаётесь один на один с сайтом. Помощь, консультации и обновления всегда доступны.</p>
+    </div>
+    <div class="adv-card reveal r-d3">
+      <div class="adv-icon"><svg><use href="#i-wallet"/></svg></div>
+      <h3 class="adv-title" data-key="adv6_t">Доступные цены</h3>
+      <p class="adv-desc" data-key="adv6_d">Прозрачное ценообразование без скрытых платежей. Подходит под любой бюджет.</p>
+    </div>
+  </div>
 </section>
 
-        <!-- =========================
-             ABOUT
-        ========================== -->
-
-      <section id="about" class="about">
-
-    <div class="about-content">
-
-        <div class="section-heading about-heading">
-            <span>О НАС</span>
-            <h2>Создаём современные сайты для бизнеса</h2>
-        </div>
-
-        <p class="about-text">
-            WebPro помогает компаниям выделяться в интернете с помощью
-            современных, быстрых и удобных сайтов. Мы создаём решения,
-            которые не только красиво выглядят, но и помогают привлекать
-            новых клиентов.
-        </p>
-
-        <div class="about-stats">
-
-            <div class="stat-card">
-                <h3>100%</h3>
-                <p>Индивидуальный подход</p>
-            </div>
-
-            <div class="stat-card">
-                <h3>24/7</h3>
-                <p>Поддержка клиентов</p>
-            </div>
-
-            <div class="stat-card">
-                <h3>⚡</h3>
-                <p>Быстрая загрузка сайтов</p>
-            </div>
-
-        </div>
-
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_srv">Услуги</span>
+    <h2 class="section-title" data-key="title_srv">Для каких сфер создаю сайты</h2>
+    <p class="section-desc" data-key="desc_srv">Каждый сайт создаётся под цель бизнеса — а не по готовому шаблону</p>
+  </div>
+  <div class="srv-grid">
+    <div class="srv-card reveal r-d1">
+      <div class="srv-glow"></div>
+      <div class="srv-icon"><svg><use href="#i-rocket"/></svg></div>
+      <h3 class="srv-title" data-key="srv1_t">Лендинг</h3>
+      <p class="srv-desc" data-key="srv1_d">Продающая страница для одного товара или услуги. Максимальная конверсия и привлечение клиентов.</p>
+      <span class="srv-badge" data-key="badge_pop">Популярное</span>
     </div>
-
+    <div class="srv-card reveal r-d2">
+      <div class="srv-glow"></div>
+      <div class="srv-icon"><svg><use href="#i-card"/></svg></div>
+      <h3 class="srv-title" data-key="srv2_t">Сайт-визитка</h3>
+      <p class="srv-desc" data-key="srv2_d">Простой и стильный сайт с основной информацией о вас или вашей компании для быстрого знакомства.</p>
+    </div>
+    <div class="srv-card reveal r-d3">
+      <div class="srv-glow"></div>
+      <div class="srv-icon"><svg><use href="#i-building"/></svg></div>
+      <h3 class="srv-title" data-key="srv3_t">Корпоративный сайт</h3>
+      <p class="srv-desc" data-key="srv3_d">Официальный сайт компании со всеми разделами, полной информацией и профессиональным оформлением.</p>
+    </div>
+    <div class="srv-card reveal r-d1">
+      <div class="srv-glow"></div>
+      <div class="srv-icon"><svg><use href="#i-shopping"/></svg></div>
+      <h3 class="srv-title" data-key="srv4_t">Интернет-магазин</h3>
+      <p class="srv-desc" data-key="srv4_d">Каталог товаров, корзина, онлайн-оплата и личный кабинет. Полноценная торговая площадка.</p>
+      <span class="srv-badge" data-key="badge_complex">Сложный проект</span>
+    </div>
+    <div class="srv-card reveal r-d2">
+      <div class="srv-glow"></div>
+      <div class="srv-icon"><svg><use href="#i-restaurant"/></svg></div>
+      <h3 class="srv-title" data-key="srv5_t">Ресторан / Меню</h3>
+      <p class="srv-desc" data-key="srv5_d">Цифровое меню, онлайн-заказ и бронирование стола. Удобный сервис для ваших гостей.</p>
+    </div>
+  </div>
 </section>
-        <!-- =========================
-             ADVANTAGES
-        ========================== -->
 
-      <!-- =========================================================
-     WHY US
-========================================================= -->
-
-<section id="advantages" class="advantages">
-
-    <div class="section-heading">
-
-        <span>ПОЧЕМУ ВИБРАТ НАС?</span>
-
-        <h2>Наши преимущества</h2>
-
-        <p>
-            Мы создаём сайты с вниманием к каждой детали.
-        </p>
-
+<!-- PORTFOLIO -->
+<section class="section" id="portfolio">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_port">Портфолио</span>
+    <h2 class="section-title" data-key="title_port">Примеры наших работ</h2>
+    <p class="section-desc" data-key="desc_port">Реальные проекты, созданные для разных бизнесов и ниш</p>
+  </div>
+  <div class="port-grid">
+    <div class="port-card reveal r-d1">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="E-commerce">
+      <div class="port-overlay">
+        <span class="port-tag">E-commerce</span>
+        <h3 class="port-title" data-key="port1_t">Интернет-магазин одежды</h3>
+        <p class="port-subtitle" data-key="port1_s">Адаптивный дизайн, корзина, оплата</p>
+      </div>
     </div>
-
-
-    <div class="advantages-grid">
-
-        <!-- CARD 1 -->
-
-        <article class="advantage-card">
-
-            <div class="advantage-icon">
-                <i class="fa-solid fa-bolt"></i>
-            </div>
-
-            <h3>Быстро</h3>
-
-            <p>
-                Создаём быстрые сайты с удобной структурой
-                и оптимизированной загрузкой.
-            </p>
-
-        </article>
-
-
-        <!-- CARD 2 -->
-
-        <article class="advantage-card">
-
-            <div class="advantage-icon">
-                <i class="fa-solid fa-mobile-screen"></i>
-            </div>
-
-            <h3>Адаптивно</h3>
-
-            <p>
-                Сайт корректно отображается на компьютерах,
-                планшетах и мобильных устройствах.
-            </p>
-
-        </article>
-
-
-        <!-- CARD 3 -->
-
-        <article class="advantage-card">
-
-            <div class="advantage-icon">
-                <i class="fa-solid fa-palette"></i>
-            </div>
-
-            <h3>Современно</h3>
-
-            <p>
-                Используем современный дизайн, аккуратные
-                детали и продуманную визуальную подачу.
-            </p>
-
-        </article>
-
-
-        <!-- CARD 4 -->
-
-        <article class="advantage-card">
-
-            <div class="advantage-icon">
-                <i class="fa-solid fa-headset"></i>
-            </div>
-
-            <h3>Поддержка</h3>
-
-            <p>
-                Помогаем разобраться с сайтом и остаёмся
-                на связи после завершения работы.
-            </p>
-
-        </article>
-
+    <div class="port-card reveal r-d2">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80" alt="Medical">
+      <div class="port-overlay">
+        <span class="port-tag">Корпоративный</span>
+        <h3 class="port-title" data-key="port2_t">Сайт медицинской клиники</h3>
+        <p class="port-subtitle" data-key="port2_s">Запись онлайн, разделы услуг</p>
+      </div>
     </div>
-
+    <div class="port-card reveal r-d3">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Restaurant">
+      <div class="port-overlay">
+        <span class="port-tag">Ресторан</span>
+        <h3 class="port-title" data-key="port3_t">Сайт ресторана с меню</h3>
+        <p class="port-subtitle" data-key="port3_s">Цифровое меню, бронирование</p>
+      </div>
+    </div>
+    <div class="port-card reveal r-d1">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Dashboard">
+      <div class="port-overlay">
+        <span class="port-tag">Сложный проект</span>
+        <h3 class="port-title" data-key="port4_t">Дашборд аналитики</h3>
+        <p class="port-subtitle" data-key="port4_s">Интерактивные графики, данные</p>
+      </div>
+    </div>
+    <div class="port-card reveal r-d2">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Business">
+      <div class="port-overlay">
+        <span class="port-tag">Портфолио</span>
+        <h3 class="port-title" data-key="port5_t">Сайт-визитка бизнеса</h3>
+        <p class="port-subtitle" data-key="port5_s">Профессиональное оформление, контакты</p>
+      </div>
+    </div>
+    <div class="port-card reveal r-d3">
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Shop">
+      <div class="port-overlay">
+        <span class="port-tag">E-commerce</span>
+        <h3 class="port-title" data-key="port6_t">Магазин электроники</h3>
+        <p class="port-subtitle" data-key="port6_s">Каталог, фильтры, корзина</p>
+      </div>
+    </div>
+  </div>
 </section>
-        <!-- =========================
-             CONTACTS
-        ========================== -->
 
-        <section id="contacts" class="contacts">
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_price">Тарифы</span>
+    <h2 class="section-title" data-key="title_price">Выберите подходящий тариф</h2>
+    <p class="section-desc" data-key="desc_price">Прозрачное ценообразование без скрытых платежей</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card reveal r-d1">
+      <h3 class="price-name" data-key="p1_name">Базовый</h3>
+      <div class="price-amount" data-key="p1_price">от 400 смн</div>
+      <div class="price-period" data-key="p1_period">Одноразовая оплата</div>
+      <ul class="price-features">
+        <li><svg><use href="#i-check"/></svg> <span data-key="p1_f1">1 страница (лендинг или визитка)</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p1_f2">Адаптивный дизайн</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p1_f3">Форма обратной связи</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p1_f4">Срок: 3–5 дней</span></li>
+      </ul>
+      <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center" data-key="btn_order2">Заказать сайт</a>
+    </div>
+    <div class="price-card featured reveal r-d2" data-popular="Популярный">
+      <h3 class="price-name" data-key="p2_name">Стандарт</h3>
+      <div class="price-amount" data-key="p2_price">от 900 смн</div>
+      <div class="price-period" data-key="p2_period">Одноразовая оплата</div>
+      <ul class="price-features">
+        <li><svg><use href="#i-check"/></svg> <span data-key="p2_f1">До 5 страниц (корпоративный)</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p2_f2">Базовая SEO-оптимизация</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p2_f3">Подключение соцсетей</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p2_f4">Срок: 7–10 дней</span></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center" data-key="btn_order2">Заказать сайт</a>
+    </div>
+    <div class="price-card reveal r-d3">
+      <h3 class="price-name" data-key="p3_name">Премиум</h3>
+      <div class="price-amount" data-key="p3_price">от 1800 смн</div>
+      <div class="price-period" data-key="p3_period">Одноразовая оплата</div>
+      <ul class="price-features">
+        <li><svg><use href="#i-check"/></svg> <span data-key="p3_f1">Интернет-магазин / сложный сайт</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p3_f2">Индивидуальный дизайн</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p3_f3">SEO + долгосрочная поддержка</span></li>
+        <li><svg><use href="#i-check"/></svg> <span data-key="p3_f4">Срок: от 14 дней</span></li>
+      </ul>
+      <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center" data-key="btn_order2">Заказать сайт</a>
+    </div>
+  </div>
+</section>
 
-            <div class="section-heading">
+<!-- STEPS -->
+<section class="section" id="steps">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_steps">Процесс</span>
+    <h2 class="section-title" data-key="title_steps">От заявки до запуска сайта</h2>
+    <p class="section-desc" data-key="desc_steps">Прозрачный процесс работы на каждом этапе</p>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-row reveal r-d1">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3 data-key="s1_t">Заявка и консультация</h3>
+        <p data-key="s1_d">Вы оставляете заявку через удобный мессенджер. Мы обсуждаем проект, цели, аудиторию и пожелания. Подбираем оптимальное решение.</p>
+      </div>
+    </div>
+    <div class="step-row reveal r-d2">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3 data-key="s2_t">Дизайн и прототип</h3>
+        <p data-key="s2_d">Разрабатываю уникальный дизайн сайта, учитывая цели вашего бизнеса, целевую аудиторию и современные тренды веб-дизайна.</p>
+      </div>
+    </div>
+    <div class="step-row reveal r-d3">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3 data-key="s3_t">Разработка и тестирование</h3>
+        <p data-key="s3_d">Пишу чистый код и настраиваю каждый раздел — для телефона, планшета и компьютера. Провожу тестирование на всех устройствах.</p>
+      </div>
+    </div>
+    <div class="step-row reveal r-d1">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3 data-key="s4_t">Запуск и поддержка</h3>
+        <p data-key="s4_d">Сайт публикуется в интернете. При необходимости оказываю поддержку, обучение и консультации по работе с сайтом.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <span>
-                    КОНТАКТЫ
-                </span>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-wrap">
+    <div class="about-visual reveal">
+      <div class="glow-orb"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="core"><svg><use href="#i-globe"/></svg></div>
+    </div>
+    <div class="about-text reveal r-d2">
+      <h2 data-key="about_t">О нашей студии WebPro</h2>
+      <p data-key="about_d1">WebPro — это команда профессионалов, которая создаёт современные сайты для бизнеса любого масштаба. От небольших компаний и стартапов до ресторанов, клиник и крупных интернет-магазинов.</p>
+      <p data-key="about_d2">Каждый проект выполняется с максимальным вниманием к деталям и в прямом контакте с заказчиком. Мы работаем по договору с гарантией 1 год — любые проблемы внутри сайта устраняются бесплатно.</p>
+      <div class="about-stats">
+        <div class="about-stat"><div class="num">24/7</div><div class="lbl" data-key="about_l1">Поддержка</div></div>
+        <div class="about-stat"><div class="num">100%</div><div class="lbl" data-key="about_l2">Качество</div></div>
+        <div class="about-stat"><div class="num">1ч</div><div class="lbl" data-key="about_l3">Ответ</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <h2>
-                    Связаться с нами
-                </h2>
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_faq">FAQ</span>
+    <h2 class="section-title" data-key="title_faq">Часто задаваемые вопросы</h2>
+    <p class="section-desc" data-key="desc_faq">Ответы на самые популярные вопросы наших клиентов</p>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item reveal r-d1">
+      <div class="faq-q"><span data-key="faq1_q">Сколько стоит создание сайта?</span><div class="faq-icon"><svg><use href="#i-plus"/></svg></div></div>
+      <div class="faq-a" data-key="faq1_a">Стоимость зависит от типа и сложности сайта. Базовый лендинг — от 400 сомони, корпоративный сайт — от 900 сомони, интернет-магазин — от 1800 сомони. Точную цену назову после обсуждения проекта.</div>
+    </div>
+    <div class="faq-item reveal r-d2">
+      <div class="faq-q"><span data-key="faq2_q">Какие сроки разработки?</span><div class="faq-icon"><svg><use href="#i-plus"/></svg></div></div>
+      <div class="faq-a" data-key="faq2_a">Сроки зависят от сложности проекта. Лендинг — 3-5 дней, корпоративный сайт — 7-10 дней, интернет-магазин — от 14 дней. Всегда соблюдаю установленные дедлайны.</div>
+    </div>
+    <div class="faq-item reveal r-d3">
+      <div class="faq-q"><span data-key="faq3_q">Будет ли сайт работать на телефоне?</span><div class="faq-icon"><svg><use href="#i-plus"/></svg></div></div>
+      <div class="faq-a" data-key="faq3_a">Да, каждый сайт адаптируется под все устройства — смартфоны, планшеты и компьютеры. Мы используем mobile-first подход, при котором дизайн сначала создаётся для мобильных устройств.</div>
+    </div>
+    <div class="faq-item reveal r-d1">
+      <div class="faq-q"><span data-key="faq4_q">Есть ли поддержка после запуска?</span><div class="faq-icon"><svg><use href="#i-plus"/></svg></div></div>
+      <div class="faq-a" data-key="faq4_a">Да, согласно договору в течение 1 года любые проблемы внутри сайта устраняются бесплатно. Также доступна платная поддержка с регулярными обновлениями и доработками.</div>
+    </div>
+  </div>
+</section>
 
-                <p>
-                    Выберите удобный способ связи
-                    и расскажите нам о вашем проекте.
-                </p>
+<!-- CONTACT (Socials only - no form, no email) -->
+<section class="section contact-section" id="contact">
+  <div class="section-header reveal">
+    <span class="section-label" data-key="tag_contact">Контакты</span>
+    <h2 class="section-title" data-key="title_contact">Свяжитесь с нами</h2>
+    <p class="section-desc" data-key="desc_contact">Напишите в удобный мессенджер — ответим в течение часа</p>
+  </div>
+  <div class="contact-socials reveal r-d2">
+    <a href="https://t.me/WebProCompany" class="contact-social" target="_blank" rel="noopener">
+      <div class="cs-icon"><svg><use href="#i-telegram"/></svg></div>
+      <span>Telegram</span>
+    </a>
+    <a href="https://wa.me/992974008118" class="contact-social" target="_blank" rel="noopener">
+      <div class="cs-icon"><svg><use href="#i-whatsapp"/></svg></div>
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://instagram.com/webpro.company" class="contact-social" target="_blank" rel="noopener">
+      <div class="cs-icon"><svg><use href="#i-instagram"/></svg></div>
+      <span>Instagram</span>
+    </a>
+  </div>
+</section>
 
-            </div>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-inner reveal">
+    <h2 class="cta-title" data-key="cta_t">Готовы получить современный сайт для своего бизнеса?</h2>
+    <p class="cta-desc" data-key="cta_d">Оставьте заявку прямо сейчас и получите бесплатную консультацию по вашему проекту</p>
+    <a href="#contact" class="btn btn-primary" style="padding:1rem 2.5rem">
+      <svg width="16" height="16"><use href="#i-arrow"/></svg>
+      <span data-key="btn_order3">Связаться с нами</span>
+    </a>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">WebPro</div>
+    <div class="footer-socials">
+      <a class="footer-social" href="https://t.me/WebProCompany" target="_blank" rel="noopener"><svg><use href="#i-telegram"/></svg></a>
+      <a class="footer-social" href="https://wa.me/992974008118" target="_blank" rel="noopener"><svg><use href="#i-whatsapp"/></svg></a>
+      <a class="footer-social" href="https://instagram.com/webpro.company" target="_blank" rel="noopener"><svg><use href="#i-instagram"/></svg></a>
+    </div>
+    <div class="footer-copy" data-key="footer_copy">© 2026 WebPro. Все права защищены.</div>
+  </div>
+</footer>
 
-            <div class="social-buttons">
+<script>
+// ===== TRANSLATIONS =====
+const T = {
+  ru: {
+    nav_adv:"Преимущества", nav_srv:"Услуги", nav_port:"Портфолио", nav_price:"Тарифы", nav_about:"О нас", nav_contact:"Контакты",
+    hero_badge:"Персональная веб-студия", hero_t1:"Сайт, который", hero_t2:"выведет ваш бизнес", hero_t3:"на новый уровень",
+    hero_sub:"Современные, быстрые и адаптивные сайты под любые устройства. Индивидуальный подход к каждому проекту с гарантией качества.",
+    btn_order:"Заказать сайт", btn_works:"Посмотреть работы", btn_order2:"Заказать сайт", btn_order3:"Связаться с нами",
+    stat_proj:"Проектов", stat_exp:"Года опыта", stat_sat:"% довольных",
+    mq_1:"Современный дизайн", mq_2:"SEO оптимизация", mq_3:"Адаптивность", mq_4:"Быстрая загрузка", mq_5:"Поддержка 24/7", mq_6:"Доступные цены",
+    tag_adv:"Преимущества", title_adv:"Почему выбирают нас", desc_adv:"Каждый сайт создаётся с вниманием к деталям и под цели вашего бизнеса",
+    adv1_t:"Современный дизайн", adv1_d:"Индивидуальный стиль, а не шаблон — каждый сайт создаётся в своей уникальной эстетике с учётом трендов 2026 года.",
+    adv2_t:"SEO оптимизация", adv2_d:"Ваш сайт будет легко найти в Google и Яндекс. Оптимизация под поисковые системы включена в каждый проект.",
+    adv3_t:"Адаптация под телефон", adv3_d:"Корректная работа на любом экране — от смартфона до широкого монитора. Mobile-first подход.",
+    adv4_t:"Быстрая загрузка", adv4_d:"Сайт открывается мгновенно. Оптимизированный код, современные технологии и минимальное время отклика.",
+    adv5_t:"Поддержка после запуска", adv5_d:"Вы не остаётесь один на один с сайтом. Помощь, консультации и обновления всегда доступны.",
+    adv6_t:"Доступные цены", adv6_d:"Прозрачное ценообразование без скрытых платежей. Подходит под любой бюджет.",
+    tag_srv:"Услуги", title_srv:"Для каких сфер создаю сайты", desc_srv:"Каждый сайт создаётся под цель бизнеса — а не по готовому шаблону",
+    srv1_t:"Лендинг", srv1_d:"Продающая страница для одного товара или услуги. Максимальная конверсия и привлечение клиентов.",
+    srv2_t:"Сайт-визитка", srv2_d:"Простой и стильный сайт с основной информацией о вас или вашей компании для быстрого знакомства.",
+    srv3_t:"Корпоративный сайт", srv3_d:"Официальный сайт компании со всеми разделами, полной информацией и профессиональным оформлением.",
+    srv4_t:"Интернет-магазин", srv4_d:"Каталог товаров, корзина, онлайн-оплата и личный кабинет. Полноценная торговая площадка.",
+    srv5_t:"Ресторан / Меню", srv5_d:"Цифровое меню, онлайн-заказ и бронирование стола. Удобный сервис для ваших гостей.",
+    badge_pop:"Популярное", badge_complex:"Сложный проект",
+    tag_port:"Портфолио", title_port:"Примеры наших работ", desc_port:"Реальные проекты, созданные для разных бизнесов и ниш",
+    port1_t:"Интернет-магазин одежды", port1_s:"Адаптивный дизайн, корзина, оплата",
+    port2_t:"Сайт медицинской клиники", port2_s:"Запись онлайн, разделы услуг",
+    port3_t:"Сайт ресторана с меню", port3_s:"Цифровое меню, бронирование",
+    port4_t:"Дашборд аналитики", port4_s:"Интерактивные графики, данные",
+    port5_t:"Сайт-визитка бизнеса", port5_s:"Профессиональное оформление, контакты",
+    port6_t:"Магазин электроники", port6_s:"Каталог, фильтры, корзина",
+    tag_price:"Тарифы", title_price:"Выберите подходящий тариф", desc_price:"Прозрачное ценообразование без скрытых платежей",
+    p1_name:"Базовый", p1_price:"от 400 смн", p1_period:"Одноразовая оплата",
+    p1_f1:"1 страница (лендинг или визитка)", p1_f2:"Адаптивный дизайн", p1_f3:"Форма обратной связи", p1_f4:"Срок: 3–5 дней",
+    p2_name:"Стандарт", p2_price:"от 900 смн", p2_period:"Одноразовая оплата",
+    p2_f1:"До 5 страниц (корпоративный)", p2_f2:"Базовая SEO-оптимизация", p2_f3:"Подключение соцсетей", p2_f4:"Срок: 7–10 дней",
+    p3_name:"Премиум", p3_price:"от 1800 смн", p3_period:"Одноразовая оплата",
+    p3_f1:"Интернет-магазин / сложный сайт", p3_f2:"Индивидуальный дизайн", p3_f3:"SEO + долгосрочная поддержка", p3_f4:"Срок: от 14 дней",
+    tag_steps:"Процесс", title_steps:"От заявки до запуска сайта", desc_steps:"Прозрачный процесс работы на каждом этапе",
+    s1_t:"Заявка и консультация", s1_d:"Вы оставляете заявку через удобный мессенджер. Мы обсуждаем проект, цели, аудиторию и пожелания. Подбираем оптимальное решение.",
+    s2_t:"Дизайн и прототип", s2_d:"Разрабатываю уникальный дизайн сайта, учитывая цели вашего бизнеса, целевую аудиторию и современные тренды веб-дизайна.",
+    s3_t:"Разработка и тестирование", s3_d:"Пишу чистый код и настраиваю каждый раздел — для телефона, планшета и компьютера. Провожу тестирование на всех устройствах.",
+    s4_t:"Запуск и поддержка", s4_d:"Сайт публикуется в интернете. При необходимости оказываю поддержку, обучение и консультации по работе с сайтом.",
+    about_t:"О нашей студии WebPro", about_d1:"WebPro — это команда профессионалов, которая создаёт современные сайты для бизнеса любого масштаба. От небольших компаний и стартапов до ресторанов, клиник и крупных интернет-магазинов.",
+    about_d2:"Каждый проект выполняется с максимальным вниманием к деталям и в прямом контакте с заказчиком. Мы работаем по договору с гарантией 1 год — любые проблемы внутри сайта устраняются бесплатно.",
+    about_l1:"Поддержка", about_l2:"Качество", about_l3:"Ответ",
+    tag_faq:"FAQ", title_faq:"Часто задаваемые вопросы", desc_faq:"Ответы на самые популярные вопросы наших клиентов",
+    faq1_q:"Сколько стоит создание сайта?", faq1_a:"Стоимость зависит от типа и сложности сайта. Базовый лендинг — от 400 сомони, корпоративный сайт — от 900 сомони, интернет-магазин — от 1800 сомони. Точную цену назову после обсуждения проекта.",
+    faq2_q:"Какие сроки разработки?", faq2_a:"Сроки зависят от сложности проекта. Лендинг — 3-5 дней, корпоративный сайт — 7-10 дней, интернет-магазин — от 14 дней. Всегда соблюдаю установленные дедлайны.",
+    faq3_q:"Будет ли сайт работать на телефоне?", faq3_a:"Да, каждый сайт адаптируется под все устройства — смартфоны, планшеты и компьютеры. Мы используем mobile-first подход, при котором дизайн сначала создаётся для мобильных устройств.",
+    faq4_q:"Есть ли поддержка после запуска?", faq4_a:"Да, согласно договору в течение 1 года любые проблемы внутри сайта устраняются бесплатно. Также доступна платная поддержка с регулярными обновлениями и доработками.",
+    tag_contact:"Контакты", title_contact:"Свяжитесь с нами", desc_contact:"Напишите в удобный мессенджер — ответим в течение часа",
+    cta_t:"Готовы получить современный сайт для своего бизнеса?", cta_d:"Оставьте заявку прямо сейчас и получите бесплатную консультацию по вашему проекту",
+    footer_copy:"© 2026 WebPro. Все права защищены."
+  },
+  en: {
+    nav_adv:"Advantages", nav_srv:"Services", nav_port:"Portfolio", nav_price:"Pricing", nav_about:"About", nav_contact:"Contact",
+    hero_badge:"Personal Web Studio", hero_t1:"A website that", hero_t2:"will take your business", hero_t3:"to the next level",
+    hero_sub:"Modern, fast and responsive websites for any device. Individual approach to each project with quality guarantee.",
+    btn_order:"Order a website", btn_works:"View works", btn_order2:"Order a website", btn_order3:"Contact us",
+    stat_proj:"Projects", stat_exp:"Years exp.", stat_sat:"% satisfied",
+    mq_1:"Modern Design", mq_2:"SEO Optimization", mq_3:"Responsive", mq_4:"Fast Loading", mq_5:"24/7 Support", mq_6:"Affordable Prices",
+    tag_adv:"Advantages", title_adv:"Why choose us", desc_adv:"Every website is created with attention to detail and tailored to your business goals",
+    adv1_t:"Modern Design", adv1_d:"Individual style, not a template — each website is created in its own unique aesthetic following 2026 trends.",
+    adv2_t:"SEO Optimization", adv2_d:"Your site will be easy to find on Google and Yandex. Search engine optimization is included in every project.",
+    adv3_t:"Mobile Adaptation", adv3_d:"Works correctly on any screen — from smartphone to wide monitor. Mobile-first approach.",
+    adv4_t:"Fast Loading", adv4_d:"The site opens instantly. Optimized code, modern technologies and minimal response time.",
+    adv5_t:"Post-Launch Support", adv5_d:"You are not left alone with the site. Help, consultations and updates are always available.",
+    adv6_t:"Affordable Prices", adv6_d:"Transparent pricing with no hidden fees. Fits any budget.",
+    tag_srv:"Services", title_srv:"Industries I create websites for", desc_srv:"Every website is created for a business goal — not from a ready-made template",
+    srv1_t:"Landing Page", srv1_d:"A selling page for one product or service. Maximum conversion and customer acquisition.",
+    srv2_t:"Business Card Site", srv2_d:"A simple and stylish site with basic information about you or your company for quick introduction.",
+    srv3_t:"Corporate Website", srv3_d:"Official company website with all sections, full information and professional design.",
+    srv4_t:"Online Store", srv4_d:"Product catalog, cart, online payment and personal account. Full-fledged trading platform.",
+    srv5_t:"Restaurant / Menu", srv5_d:"Digital menu, online ordering and table reservation. Convenient service for your guests.",
+    badge_pop:"Popular", badge_complex:"Complex Project",
+    tag_port:"Portfolio", title_port:"Examples of our work", desc_port:"Real projects created for different businesses and niches",
+    port1_t:"Clothing Online Store", port1_s:"Responsive design, cart, payment",
+    port2_t:"Medical Clinic Website", port2_s:"Online booking, service sections",
+    port3_t:"Restaurant Website", port3_s:"Digital menu, reservation",
+    port4_t:"Analytics Dashboard", port4_s:"Interactive charts, data",
+    port5_t:"Business Card Site", port5_s:"Professional design, contacts",
+    port6_t:"Electronics Store", port6_s:"Catalog, filters, cart",
+    tag_price:"Pricing", title_price:"Choose the right plan", desc_price:"Transparent pricing with no hidden fees",
+    p1_name:"Basic", p1_price:"from 400 TJS", p1_period:"One-time payment",
+    p1_f1:"1 page (landing or business card)", p1_f2:"Responsive design", p1_f3:"Contact form", p1_f4:"Timeline: 3–5 days",
+    p2_name:"Standard", p2_price:"from 900 TJS", p2_period:"One-time payment",
+    p2_f1:"Up to 5 pages (corporate)", p2_f2:"Basic SEO optimization", p2_f3:"Social media integration", p2_f4:"Timeline: 7–10 days",
+    p3_name:"Premium", p3_price:"from 1800 TJS", p3_period:"One-time payment",
+    p3_f1:"Online store / complex site", p3_f2:"Individual design", p3_f3:"SEO + long-term support", p3_f4:"Timeline: from 14 days",
+    tag_steps:"Process", title_steps:"From request to website launch", desc_steps:"Transparent work process at every stage",
+    s1_t:"Request and Consultation", s1_d:"You leave a request via a convenient messenger. We discuss the project, goals, audience and wishes. We select the optimal solution.",
+    s2_t:"Design and Prototype", s2_d:"I develop a unique website design, taking into account your business goals, target audience and modern web design trends.",
+    s3_t:"Development and Testing", s3_d:"I write clean code and configure every section — for phone, tablet and computer. I test on all devices.",
+    s4_t:"Launch and Support", s4_d:"The site is published on the Internet. If necessary, I provide support, training and consultations on working with the site.",
+    about_t:"About our WebPro studio", about_d1:"WebPro is a team of professionals that creates modern websites for businesses of any scale. From small companies and startups to restaurants, clinics and large online stores.",
+    about_d2:"Each project is carried out with maximum attention to detail and in direct contact with the customer. We work under a contract with a 1-year guarantee — any problems inside the site are fixed for free.",
+    about_l1:"Support", about_l2:"Quality", about_l3:"Response",
+    tag_faq:"FAQ", title_faq:"Frequently Asked Questions", desc_faq:"Answers to the most popular questions from our clients",
+    faq1_q:"How much does a website cost?", faq1_a:"The cost depends on the type and complexity of the site. Basic landing — from 400 somoni, corporate site — from 900 somoni, online store — from 1800 somoni. The exact price will be named after discussing the project.",
+    faq2_q:"What are the development timelines?", faq2_a:"Timelines depend on project complexity. Landing — 3-5 days, corporate site — 7-10 days, online store — from 14 days. I always meet the set deadlines.",
+    faq3_q:"Will the site work on mobile?", faq3_a:"Yes, every site is adapted for all devices — smartphones, tablets and computers. We use a mobile-first approach where design is first created for mobile devices.",
+    faq4_q:"Is there support after launch?", faq4_a:"Yes, according to the contract, for 1 year any problems inside the site are fixed for free. Paid support with regular updates and improvements is also available.",
+    tag_contact:"Contact", title_contact:"Get in touch with us", desc_contact:"Write to a convenient messenger — we will reply within an hour",
+    cta_t:"Ready to get a modern website for your business?", cta_d:"Leave a request right now and get a free consultation on your project",
+    footer_copy:"© 2026 WebPro. All rights reserved."
+  },
+  tj: {
+    nav_adv:"Афзалиятҳо", nav_srv:"Хизматрасониҳо", nav_port:"Портфолио", nav_price:"Нархҳо", nav_about:"Дар бораи мо", nav_contact:"Тамос",
+    hero_badge:"Студияи веб-шахсӣ", hero_t1:"Сомонае, ки", hero_t2:"бизнеси шуморо", hero_t3:"ба сатҳи нав мебарад",
+    hero_sub:"Сомонаҳои муосир, тез ва адаптивӣ барои ҳар гуна дастгоҳ. Равиши инфиродӣ ба ҳар лоиҳа бо кафолати сифат.",
+    btn_order:"Сомона фармоиш диҳед", btn_works:"Корҳоро бинед", btn_order2:"Сомона фармоиш диҳед", btn_order3:"Бо мо тамос гиред",
+    stat_proj:"Лоиҳаҳо", stat_exp:"Соли таҷриба", stat_sat:"% қонеъ",
+    mq_1:"Тарҳи муосир", mq_2:"SEO оптимизатсия", mq_3:"Адаптивӣ", mq_4:"Боркунии тез", mq_5:"Дастгирӣ 24/7", mq_6:"Нархҳои дастрас",
+    tag_adv:"Афзалиятҳо", title_adv:"Чаро мо интихоб мекунанд", desc_adv:"Ҳар як сомона бо диққат ба тафсилот ва мувофиқи ҳадафҳои бизнеси шумо эҷод карда мешавад",
+    adv1_t:"Тарҳи муосир", adv1_d:"Услуби инфиродӣ, на намуна — ҳар як сомона дар эстетикаи уникали худ бо назардошти трендҳои 2026 эҷод карда мешавад.",
+    adv2_t:"SEO оптимизатсия", adv2_d:"Сомонаи шуморо дар Google ва Яндекс ёфтан осон аст. Оптимизатсия барои системаҳои ҷустуҷӯӣ дар ҳар лоиҳа дохил карда шудааст.",
+    adv3_t:"Адаптатсия барои телефон", adv3_d:"Дуруст кор мекунад дар ҳар гуна экран — аз смартфон то монитори васеъ. Равиши mobile-first.",
+    adv4_t:"Боркунии тез", adv4_d:"Сомона фавран кушода мешавад. Рамзи оптимизатсияшуда, технологияҳои муосир ва вақти камтарини посух.",
+    adv5_t:"Дастгирӣ пас аз оғоз", adv5_d:"Шумо бо сомона танҳо намемонед. Ёрдам, машварат ва навсозиҳо ҳамеша дастрасанд.",
+    adv6_t:"Нархҳои дастрас", adv6_d:"Нархгузории шаффоф бе пардохти пинҳон. Ба ҳар гуна буҷа мувофиқ аст.",
+    tag_srv:"Хизматрасониҳо", title_srv:"Барои кадом соҳаҳо сомона месозам", desc_srv:"Ҳар як сомона барои ҳадафи бизнес эҷод карда мешавад — на аз намунаи тайёр",
+    srv1_t:"Лендинг", srv1_d:"Саҳифаи фурӯшанда барои як маҳсулот ё хизматрасонӣ. Конверсияи ҳадди аксар ва ҷалби муштариён.",
+    srv2_t:"Сомонаи визитка", srv2_d:"Сомонаи оддӣ ва зебо бо иттилооти асосӣ дар бораи шумо ё ширкати шумо барои шиносоии зуд.",
+    srv3_t:"Сомонаи корпоративӣ", srv3_d:"Сомонаи расмии ширкат бо ҳама қисматҳо, иттилооти пурра ва оформлениети касбӣ.",
+    srv4_t:"Мағозаи онлайн", srv4_d:"Каталоги маҳсулот, сабад, пардохти онлайн ва кабинети шахсӣ. Бозори тиҷоратии пурра.",
+    srv5_t:"Тарабхона / Меню", srv5_d:"Менюи рақамӣ, фармоиши онлайн ва бронкунии миз. Хизматрасонии қулай барои меҳмонон.",
+    badge_pop:"Машҳур", badge_complex:"Лоиҳаи мураккаб",
+    tag_port:"Портфолио", title_port:"Намунаи корҳои мо", desc_port:"Лоиҳаҳои воқеӣ, эҷодшуда барои бизнесҳои гуногун",
+    port1_t:"Мағозаи онлайни либос", port1_s:"Тарҳи адаптивӣ, сабад, пардохт",
+    port2_t:"Сомонаи клиникаи тиббӣ", port2_s:"Сабти номи онлайн, қисматҳои хизматрасонӣ",
+    port3_t:"Сомонаи тарабхона", port3_s:"Менюи рақамӣ, бронкунӣ",
+    port4_t:"Дашборди таҳлилӣ", port4_s:"Диаграммаҳои интерактивӣ, маълумот",
+    port5_t:"Сомонаи визиткаи бизнес", port5_s:"Оформлениети касбӣ, алоқа",
+    port6_t:"Мағозаи электроника", port6_s:"Каталог, филтрҳо, сабад",
+    tag_price:"Нархҳо", title_price:"Тарифи мувофиқро интихоб кунед", desc_price:"Нархгузории шаффоф бе пардохти пинҳон",
+    p1_name:"Асосӣ", p1_price:"аз 400 смн", p1_period:"Пардохти якдафъаина",
+    p1_f1:"1 саҳифа (лендинг ё визитка)", p1_f2:"Тарҳи адаптивӣ", p1_f3:"Шакли алоқа", p1_f4:"Муддат: 3–5 рӯз",
+    p2_name:"Стандарт", p2_price:"аз 900 смн", p2_period:"Пардохти якдафъаина",
+    p2_f1:"То 5 саҳифа (корпоративӣ)", p2_f2:"Оптимизатсияи SEO-и асосӣ", p2_f3:"Пайвастшавии шабакаҳои иҷтимоӣ", p2_f4:"Муддат: 7–10 рӯз",
+    p3_name:"Премиум", p3_price:"аз 1800 смн", p3_period:"Пардохти якдафъаина",
+    p3_f1:"Мағозаи онлайн / сомонаи мураккаб", p3_f2:"Тарҳи инфиродӣ", p3_f3:"SEO + дастгирӣ дарозмуддат", p3_f4:"Муддат: аз 14 рӯз",
+    tag_steps:"Раванд", title_steps:"Аз дархост то оғози сомона", desc_steps:"Раванди шаффофи кор дар ҳар қадам",
+    s1_t:"Дархост ва машварат", s1_d:"Шумо дархост мегузоред тавассути паёмбар. Мо лоиҳа, ҳадафҳо, мухлисон ва хоҳишҳоро баррасӣ мекунем. Решаи оптималиро интихоб мекунем.",
+    s2_t:"Тарҳрезӣ ва прототип", s2_d:"Ман тарҳи уникали сомонаро эҷод мекунам, бо назардошти ҳадафҳои бизнес, мухлисон ва трендҳои муосири веб-дизайн.",
+    s3_t:"Рамзнависӣ ва санҷиш", s3_d:"Ман рамзи пок менависам ва ҳар қисматро танзим мекунам — барои телефон, планшет ва компютер. Дар ҳама дастгоҳҳо санҷиш мегузаронам.",
+    s4_t:"Оғоз ва дастгирӣ", s4_d:"Сомона дар интернет нашр мешавад. Дар ҳолати зарурӣ дастгирӣ, таълим ва машварат медиҳам.",
+    about_t:"Дар бораи студияи мо WebPro", about_d1:"WebPro дастаи касбион аст, ки сомонаҳои муосир барои бизнеси ҳар гуна масштаб эҷод мекунад. Аз ширкатҳои хурд ва стартапҳо то тарабхонаҳо, клиникаҳо ва мағозаҳои калони онлайн.",
+    about_d2:"Ҳар як лоиҳа бо диққати ҳадди аксар ба тафсилот ва дар тамоси мустақим бо муштарӣ иҷро карда мешавад. Мо бо шартнома кор мекунем бо кафолати 1 сол — ҳар гуна мушкилот дохили сомона ройгон бартараф карда мешавад.",
+    about_l1:"Дастгирӣ", about_l2:"Сифат", about_l3:"Ҷавоб",
+    tag_faq:"FAQ", title_faq:"Саволҳои зиёд такроршаванда", desc_faq:"Ҷавобҳо ба машҳуртарин саволҳои муштариёни мо",
+    faq1_q:"Сохтани сомона чӣ қадар арзиш дорад?", faq1_a:"Арзиш бо вобаста аз навъ ва мураккабии сомона. Лендинги асосӣ — аз 400 сомонӣ, сомонаи корпоративӣ — аз 900 сомонӣ, мағозаи онлайн — аз 1800 сомонӣ. Нархи дақиқ пас аз баррасии лоиҳа гуфта мешавад.",
+    faq2_q:"Мӯҳлати рушд чӣ гуна аст?", faq2_a:"Мӯҳлат бо вобаста аз мураккабии лоиҳа. Лендинг — 3-5 рӯз, сомонаи корпоративӣ — 7-10 рӯз, мағозаи онлайн — аз 14 рӯз. Ман ҳамеша мӯҳлати муайяншударо риоя мекунам.",
+    faq3_q:"Оё сомона дар телефон кор мекунад?", faq3_a:"Бале, ҳар як сомона барои ҳама дастгоҳҳо мутобиқ карда мешавад — смартфонҳо, планшетҳо ва компютерҳо. Мо равиши mobile-first-ро истифода мебарем.",
+    faq4_q:"Оё пас аз оғоз дастгирӣ вуҷуд дорад?", faq4_a:"Бале, мувофиқи шартнома дар муддати 1 сол ҳар гуна мушкилот дохили сомона ройгон бартараф карда мешавад. Дастгирӣ бо пардохт низ дастрас аст.",
+    tag_contact:"Тамос", title_contact:"Бо мо тамос гиред", desc_contact:"Дар паёмбари қулай нависед — дар муддати як соат ҷавоб медиҳем",
+    cta_t:"Барои бизнеси худ сомонаи муосир мехоҳед?", cta_d:"Акнун дархост гузоред ва машварати ройгон гиред",
+    footer_copy:"© 2026 WebPro. Ҳуқуқҳо ҳифз шудаанд."
+  }
+};
 
+let L = 'ru';
+function setLang(lang) {
+  L = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.getAttribute('data-key');
+    if (T[lang][k]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = T[lang][k];
+      else if (el.tagName === 'OPTION') el.textContent = T[lang][k];
+      else el.textContent = T[lang][k];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const pc = document.querySelector('.price-card.featured');
+  if (pc) {
+    const pop = {ru:'Популярный', en:'Popular', tj:'Машҳур'};
+    pc.setAttribute('data-popular', pop[lang]);
+  }
+  localStorage.setItem('wplang', lang);
+  // Close mobile menu on language change
+  const mt = document.getElementById('mobileToggle');
+  const mm = document.getElementById('mobileMenu');
+  if (mt && mm) { mt.classList.remove('active'); mm.classList.remove('active'); }
+}
+const sl = localStorage.getItem('wplang');
+if (sl && T[sl]) setLang(sl);
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
-                <a
-                    href="https://t.me/kbrv8"
-                    target="_blank"
-                    rel="noopener noreferrer">
+// ===== PARTICLES =====
+const hp = document.getElementById('heroParticles');
+if (hp) {
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.width = (Math.random() * 4 + 2) + 'px';
+    p.style.height = p.style.width;
+    p.style.animationDelay = Math.random() * 10 + 's';
+    p.style.animationDuration = (Math.random() * 5 + 8) + 's';
+    hp.appendChild(p);
+  }
+}
 
-                    <i class="fa-brands fa-telegram"></i>
+// ===== SCROLL REVEAL =====
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-                    <span>
-                        Telegram
-                    </span>
+// ===== NAVBAR =====
+const nb = document.getElementById('navbar');
+window.addEventListener('scroll', () => nb.classList.toggle('scrolled', window.scrollY > 50));
 
-                </a>
+// ===== MOBILE MENU =====
+const mt = document.getElementById('mobileToggle');
+const mm = document.getElementById('mobileMenu');
+if (mt && mm) {
+  mt.addEventListener('click', () => { mt.classList.toggle('active'); mm.classList.toggle('active'); });
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mt.classList.remove('active'); mm.classList.remove('active'); }));
+}
 
+// ===== FAQ =====
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const active = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!active) item.classList.add('active');
+  });
+});
 
-                <a
-                    href="https://wa.me/992974008118"
-                    target="_blank"
-                    rel="noopener noreferrer">
+// ===== COUNTERS =====
+const co = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, target = parseInt(el.dataset.count);
+      let cur = 0, inc = target / 50;
+      const t = setInterval(() => {
+        cur += inc;
+        if (cur >= target) { el.textContent = target + (target === 100 ? '' : '+'); clearInterval(t); }
+        else el.textContent = Math.floor(cur);
+      }, 30);
+      co.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num').forEach(el => co.observe(el));
 
-                    <i class="fa-brands fa-whatsapp"></i>
-
-                    <span>
-                        WhatsApp
-                    </span>
-
-                </a>
-
-
-                <a
-                    href="https://instagram.com/kabirov.dev"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
-                    <i class="fa-brands fa-instagram"></i>
-
-                    <span>
-                        Instagram
-                    </span>
-
-                </a>
-
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        <div class="footer-logo">
-            WebPro
-        </div>
-
-        <p>
-            Создаём современные сайты для бизнеса.
-        </p>
-
-        <div class="footer-line"></div>
-
-        <p class="copyright">
-            © 2026 WebPro. Все права защищены.
-        </p>
-
-    </footer>
-
-
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
-    <script src="script.js"></script>
-
+// ===== SMOOTH ANCHORS =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    const t = document.querySelector(this.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
 </body>
-
 </html>
