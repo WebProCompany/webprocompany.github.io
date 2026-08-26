@@ -186,8 +186,8 @@ body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hid
 .port-card:hover .port-subtitle{transform:translateY(0)}
 
 /* ===== PRICING ===== */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:start}
-.price-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:2rem;position:relative;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:start;width:100%}
+.price-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:2rem;position:relative;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px);min-width:0}
 .price-card.featured{border-color:rgba(99,102,241,0.25);transform:scale(1.03);background:linear-gradient(180deg,rgba(99,102,241,0.06),rgba(99,102,241,0.01));box-shadow:0 0 60px rgba(99,102,241,0.08)}
 .price-card.featured::before{content:attr(data-popular);position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:0.4rem 1.2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;font-size:0.75rem;font-weight:700;border-radius:50px;box-shadow:0 4px 15px rgba(99,102,241,0.3);letter-spacing:1px;white-space:nowrap}
 .price-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.12);box-shadow:0 15px 50px rgba(0,0,0,0.3)}
@@ -199,6 +199,8 @@ body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hid
 .price-features li{padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.45);font-size:0.9rem}
 .price-features li:last-child{border-bottom:none}
 .price-features li svg{width:16px;height:16px;color:#22d3ee;flex-shrink:0}
+.price-discount{display:inline-block;padding:0.3rem 0.9rem;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:#22d3ee;border-radius:50px;font-size:0.75rem;font-weight:600;margin-bottom:0.6rem}
+.price-original{color:rgba(255,255,255,0.35);font-size:0.95rem;text-decoration:line-through;margin-bottom:0.1rem}
 
 /* ===== STEPS ===== */
 .steps-wrap{max-width:750px;margin:0 auto;display:flex;flex-direction:column}
@@ -620,8 +622,10 @@ body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hid
   </div>
   <div class="price-grid">
     <div class="price-card reveal r-d1">
+      <div class="price-discount" data-key="p1_discount">−20%</div>
       <h3 class="price-name" data-key="p1_name">Базовый</h3>
-      <div class="price-amount" data-key="p1_price">от 400 смн</div>
+      <div class="price-original" data-key="p1_original">750 смн</div>
+      <div class="price-amount" data-key="p1_price">600 смн</div>
       <div class="price-period" data-key="p1_period">Одноразовая оплата</div>
       <ul class="price-features">
         <li><svg><use href="#i-check"/></svg> <span data-key="p1_f1">1 страница (лендинг или визитка)</span></li>
@@ -632,8 +636,10 @@ body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hid
       <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center" data-key="btn_order2">Заказать сайт</a>
     </div>
     <div class="price-card featured reveal r-d2" data-popular="Популярный">
+      <div class="price-discount" data-key="p2_discount">−30%</div>
       <h3 class="price-name" data-key="p2_name">Стандарт</h3>
-      <div class="price-amount" data-key="p2_price">от 900 смн</div>
+      <div class="price-original" data-key="p2_original">1,714.29 смн</div>
+      <div class="price-amount" data-key="p2_price">1,200 смн</div>
       <div class="price-period" data-key="p2_period">Одноразовая оплата</div>
       <ul class="price-features">
         <li><svg><use href="#i-check"/></svg> <span data-key="p2_f1">До 5 страниц (корпоративный)</span></li>
@@ -644,8 +650,10 @@ body{font-family:'Inter',sans-serif;background:#050510;color:#fff;overflow-x:hid
       <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center" data-key="btn_order2">Заказать сайт</a>
     </div>
     <div class="price-card reveal r-d3">
+      <div class="price-discount" data-key="p3_discount">−40%</div>
       <h3 class="price-name" data-key="p3_name">Премиум</h3>
-      <div class="price-amount" data-key="p3_price">от 1800 смн</div>
+      <div class="price-original" data-key="p3_original">3,333.33 смн</div>
+      <div class="price-amount" data-key="p3_price">2,000 смн</div>
       <div class="price-period" data-key="p3_period">Одноразовая оплата</div>
       <ul class="price-features">
         <li><svg><use href="#i-check"/></svg> <span data-key="p3_f1">Интернет-магазин / сложный сайт</span></li>
@@ -828,11 +836,14 @@ const T = {
     port5_t:"Сайт-визитка бизнеса", port5_s:"Профессиональное оформление, контакты",
     port6_t:"Магазин электроники", port6_s:"Каталог, фильтры, корзина",
     tag_price:"Тарифы", title_price:"Выберите подходящий тариф", desc_price:"Прозрачное ценообразование без скрытых платежей",
-    p1_name:"Базовый", p1_price:"от 400 смн", p1_period:"Одноразовая оплата",
+    p1_name:"Базовый", p1_price:"600 смн", p1_period:"Одноразовая оплата",
+    p1_discount:"−20%", p1_original:"750 смн",
     p1_f1:"1 страница (лендинг или визитка)", p1_f2:"Адаптивный дизайн", p1_f3:"Форма обратной связи", p1_f4:"Срок: 3–5 дней",
-    p2_name:"Стандарт", p2_price:"от 900 смн", p2_period:"Одноразовая оплата",
+    p2_name:"Стандарт", p2_price:"1,200 смн", p2_period:"Одноразовая оплата",
+    p2_discount:"−30%", p2_original:"1,714.29 смн",
     p2_f1:"До 5 страниц (корпоративный)", p2_f2:"Базовая SEO-оптимизация", p2_f3:"Подключение соцсетей", p2_f4:"Срок: 7–10 дней",
-    p3_name:"Премиум", p3_price:"от 1800 смн", p3_period:"Одноразовая оплата",
+    p3_name:"Премиум", p3_price:"2,000 смн", p3_period:"Одноразовая оплата",
+    p3_discount:"−40%", p3_original:"3,333.33 смн",
     p3_f1:"Интернет-магазин / сложный сайт", p3_f2:"Индивидуальный дизайн", p3_f3:"SEO + долгосрочная поддержка", p3_f4:"Срок: от 14 дней",
     tag_steps:"Процесс", title_steps:"От заявки до запуска сайта", desc_steps:"Прозрачный процесс работы на каждом этапе",
     s1_t:"Заявка и консультация", s1_d:"Вы оставляете заявку через удобный мессенджер. Мы обсуждаем проект, цели, аудиторию и пожелания. Подбираем оптимальное решение.",
@@ -880,11 +891,14 @@ const T = {
     port5_t:"Business Card Site", port5_s:"Professional design, contacts",
     port6_t:"Electronics Store", port6_s:"Catalog, filters, cart",
     tag_price:"Pricing", title_price:"Choose the right plan", desc_price:"Transparent pricing with no hidden fees",
-    p1_name:"Basic", p1_price:"from 400 TJS", p1_period:"One-time payment",
+    p1_name:"Basic", p1_price:"600 TJS", p1_period:"One-time payment",
+    p1_discount:"−20%", p1_original:"750 TJS",
     p1_f1:"1 page (landing or business card)", p1_f2:"Responsive design", p1_f3:"Contact form", p1_f4:"Timeline: 3–5 days",
-    p2_name:"Standard", p2_price:"from 900 TJS", p2_period:"One-time payment",
+    p2_name:"Standard", p2_price:"1,200 TJS", p2_period:"One-time payment",
+    p2_discount:"−30%", p2_original:"1,714.29 TJS",
     p2_f1:"Up to 5 pages (corporate)", p2_f2:"Basic SEO optimization", p2_f3:"Social media integration", p2_f4:"Timeline: 7–10 days",
-    p3_name:"Premium", p3_price:"from 1800 TJS", p3_period:"One-time payment",
+    p3_name:"Premium", p3_price:"2,000 TJS", p3_period:"One-time payment",
+    p3_discount:"−40%", p3_original:"3,333.33 TJS",
     p3_f1:"Online store / complex site", p3_f2:"Individual design", p3_f3:"SEO + long-term support", p3_f4:"Timeline: from 14 days",
     tag_steps:"Process", title_steps:"From request to website launch", desc_steps:"Transparent work process at every stage",
     s1_t:"Request and Consultation", s1_d:"You leave a request via a convenient messenger. We discuss the project, goals, audience and wishes. We select the optimal solution.",
@@ -932,11 +946,14 @@ const T = {
     port5_t:"Сомонаи визиткаи бизнес", port5_s:"Оформлениети касбӣ, алоқа",
     port6_t:"Мағозаи электроника", port6_s:"Каталог, филтрҳо, сабад",
     tag_price:"Нархҳо", title_price:"Тарифи мувофиқро интихоб кунед", desc_price:"Нархгузории шаффоф бе пардохти пинҳон",
-    p1_name:"Асосӣ", p1_price:"аз 400 смн", p1_period:"Пардохти якдафъаина",
+    p1_name:"Асосӣ", p1_price:"600 смн", p1_period:"Пардохти якдафъаина",
+    p1_discount:"−20%", p1_original:"750 смн",
     p1_f1:"1 саҳифа (лендинг ё визитка)", p1_f2:"Тарҳи адаптивӣ", p1_f3:"Шакли алоқа", p1_f4:"Муддат: 3–5 рӯз",
-    p2_name:"Стандарт", p2_price:"аз 900 смн", p2_period:"Пардохти якдафъаина",
+    p2_name:"Стандарт", p2_price:"1,200 смн", p2_period:"Пардохти якдафъаина",
+    p2_discount:"−30%", p2_original:"1,714.29 смн",
     p2_f1:"То 5 саҳифа (корпоративӣ)", p2_f2:"Оптимизатсияи SEO-и асосӣ", p2_f3:"Пайвастшавии шабакаҳои иҷтимоӣ", p2_f4:"Муддат: 7–10 рӯз",
-    p3_name:"Премиум", p3_price:"аз 1800 смн", p3_period:"Пардохти якдафъаина",
+    p3_name:"Премиум", p3_price:"2,000 смн", p3_period:"Пардохти якдафъаина",
+    p3_discount:"−40%", p3_original:"3,333.33 смн",
     p3_f1:"Мағозаи онлайн / сомонаи мураккаб", p3_f2:"Тарҳи инфиродӣ", p3_f3:"SEO + дастгирӣ дарозмуддат", p3_f4:"Муддат: аз 14 рӯз",
     tag_steps:"Раванд", title_steps:"Аз дархост то оғози сомона", desc_steps:"Раванди шаффофи кор дар ҳар қадам",
     s1_t:"Дархост ва машварат", s1_d:"Шумо дархост мегузоред тавассути паёмбар. Мо лоиҳа, ҳадафҳо, мухлисон ва хоҳишҳоро баррасӣ мекунем. Решаи оптималиро интихоб мекунем.",
